@@ -1,0 +1,144 @@
+<html  lang="">
+<head>
+    <title>wsx💗lxp</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<canvas id='mycanvas' width=700 height=700>
+    Your browser does not support the canvas element.
+</canvas>
+<br/>
+
+
+<script>
+    width = 700
+    height = 700
+
+
+    //canvas元素
+    var c = document.getElementById('mycanvas');
+    //context对象
+    var ctx = c.getContext('2d');
+
+
+    function testShow() {
+        ctx.beginPath();
+        //①定义样式
+        ctx.strokeStyle = 'green';        //颜色
+        ctx.lineWidth = 20;               //线宽
+        ctx.lineCap = 'square';           //端点
+        ctx.lineJoin = 'round';           //拐点
+        //②定义路径
+        ctx.moveTo(50, 50);      //起点
+        ctx.lineTo(100, 100);        //拐点
+        ctx.lineTo(50, 200);     //终点
+        ctx.closePath();                //闭合
+        //③绘制
+        ctx.stroke();
+    }
+
+    // testShow()
+
+    function darwCentorPoint() {
+        ctx.beginPath();
+        //①定义样式
+        ctx.strokeStyle = 'green';        //颜色
+        ctx.lineWidth = 3;               //线宽
+        ctx.lineCap = 'square';           //端点
+        ctx.lineJoin = 'round';           //拐点
+        //②定义路径
+        ctx.moveTo(width / 2, height / 2);      //起点
+        ctx.lineTo(width / 2, height / 2);        //拐点
+        ctx.lineTo(width / 2, height / 2);     //终点
+        ctx.closePath();                //闭合
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);      //起点
+        ctx.lineTo(0, height);        //拐点
+        ctx.lineTo(width , height );     //终点
+        ctx.lineTo(width , 0 );     //终点
+        ctx.closePath();                //闭合
+
+
+        //③绘制
+        ctx.stroke();
+    }
+
+    darwCentorPoint()
+
+    const mouseUp = 1
+    const mouseDown = 2
+    mouseStatus = mouseUp // 1 is up  2 is down
+    lastLine = []
+    oldLines = []
+
+    function centorPoint(point) {
+        return {x: width - point.x, y: height - point.y}
+    }
+
+    function showCentorLine(line) {
+        showLine(line)
+        line2 = []
+        for (point of line) {
+            line2.push(centorPoint(point))
+        }
+        showLine(line2)
+        console.log(line, line2)
+    }
+
+    function showLine(line) {
+        if (line.length === 0) {
+            return
+        }
+
+        ctx.beginPath()
+        ctx.moveTo(line[0].x, line[0].y)
+        for (i = 1; i < line.length; i++) {
+            ctx.lineTo(line[i].x, line[i].y)
+        }
+        ctx.stroke()
+    }
+
+    function show() {
+        ctx.strokeStyle = 'green';        //颜色
+        ctx.lineWidth = 2;               //线宽
+        ctx.lineCap = 'square';           //端点
+        ctx.lineJoin = 'round';           //拐点
+
+        for (line in oldLines) {
+            showCentorLine(line)
+        }
+        showCentorLine(lastLine)
+    }
+
+    function doMouseDown(param) {
+        mouseStatus = mouseDown
+        // console.log("doMouseDown",param)
+    }
+
+    function doMouseMove(param) {
+        if (mouseStatus === mouseDown) {
+            position = {x: param.x, y: param.y}
+            lastLine.push(position)
+            show()
+            // console.log("doMouseMove", param)
+        }
+    }
+
+    function doMouseUp(param) {
+        mouseStatus = mouseUp
+        oldLines.push(lastLine)
+        lastLine = []
+        console.log(oldLines)
+        // console.log("doMouseUp",param)
+    }
+
+    var canvas = c
+    canvas.addEventListener("mousedown", doMouseDown, false);
+    canvas.addEventListener('mousemove', doMouseMove, false);
+    canvas.addEventListener('mouseup', doMouseUp, false);
+
+
+</script>
+
+</html>
