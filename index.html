@@ -1,17 +1,17 @@
-<html  lang="">
+<html lang="">
 <head>
     <title>wsx💗lxp</title>
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<canvas id='mycanvas' width=700 height=700>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<canvas id='mycanvas' width=500 height=500>
     Your browser does not support the canvas element.
 </canvas>
 <br/>
 
 
 <script>
-    width = 700
-    height = 700
+    width = 500
+    height = 500
 
 
     //canvas元素
@@ -55,8 +55,8 @@
         ctx.beginPath();
         ctx.moveTo(0, 0);      //起点
         ctx.lineTo(0, height);        //拐点
-        ctx.lineTo(width , height );     //终点
-        ctx.lineTo(width , 0 );     //终点
+        ctx.lineTo(width, height);     //终点
+        ctx.lineTo(width, 0);     //终点
         ctx.closePath();                //闭合
 
 
@@ -83,7 +83,7 @@
             line2.push(centorPoint(point))
         }
         showLine(line2)
-        console.log(line, line2)
+        // console.log(line, line2)
     }
 
     function showLine(line) {
@@ -129,7 +129,7 @@
         mouseStatus = mouseUp
         oldLines.push(lastLine)
         lastLine = []
-        console.log(oldLines)
+        // console.log(oldLines)
         // console.log("doMouseUp",param)
     }
 
@@ -137,6 +137,10 @@
     canvas.addEventListener("mousedown", doMouseDown, false);
     canvas.addEventListener('mousemove', doMouseMove, false);
     canvas.addEventListener('mouseup', doMouseUp, false);
+
+    canvas.addEventListener("touchstart", doMouseDown, false);
+    canvas.addEventListener('touchmove', doMouseMove, false);
+    canvas.addEventListener('touchend', doMouseUp, false);
 
 
 </script>
