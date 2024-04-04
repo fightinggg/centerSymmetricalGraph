@@ -113,10 +113,12 @@
 
     function doMouseDown(param) {
         mouseStatus = mouseDown
+        param.preventDefault()
         // console.log("doMouseDown",param)
     }
 
     function doMouseMove(param) {
+        param.preventDefault()
         if (mouseStatus === mouseDown) {
             position = {x: param.x, y: param.y}
             lastLine.push(position)
@@ -126,6 +128,7 @@
     }
 
     function doMouseUp(param) {
+        param.preventDefault()
         mouseStatus = mouseUp
         oldLines.push(lastLine)
         lastLine = []
@@ -138,9 +141,9 @@
     canvas.addEventListener('mousemove', doMouseMove, false);
     canvas.addEventListener('mouseup', doMouseUp, false);
 
-    canvas.addEventListener("touchstart", doMouseDown, false);
-    canvas.addEventListener('touchmove', doMouseMove, false);
-    canvas.addEventListener('touchend', doMouseUp, false);
+    canvas.addEventListener("touchstart", doMouseDown);
+    canvas.addEventListener('touchmove', doMouseMove);
+    canvas.addEventListener('touchend', doMouseUp);
 
 
 </script>
